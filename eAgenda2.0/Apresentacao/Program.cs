@@ -17,7 +17,7 @@ namespace eAgenda2._0.Apresentacao
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new ListagemTarefas());
+            Application.Run(new MenuPrincipal());
         }
     }
 }

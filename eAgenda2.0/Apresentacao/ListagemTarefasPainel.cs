@@ -1,26 +1,34 @@
 ﻿using eAgenda2._0.Dominio;
-using eAgenda2._0.Dominio.Compartilhado;
 using eAgenda2._0.Infra;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
-
 
 namespace eAgenda2._0.Apresentacao
 {
-    public partial class ListagemTarefas : Form
+    public partial class ListagemTarefasPainel : UserControl
     {
-        private RepositorioTarefaEmArquivo repositorioTarefa;
+        private RepositorioTarefa repositorioTarefa;
 
-        public ListagemTarefas()
+        public ListagemTarefasPainel()
         {
-            
-
+            InitializeComponent();
             SerializadorTarefasEmJsonDotnet serializador = new SerializadorTarefasEmJsonDotnet();
 
-            repositorioTarefa = new RepositorioTarefaEmArquivo(serializador);
-
-            InitializeComponent();
+            repositorioTarefa = new RepositorioTarefa(serializador);
+        
             CarregarTarefas();
+        }
+
+        private void ListagemTarefasTela_Load(object sender, EventArgs e)
+        {
+
         }
 
         private void CarregarTarefas()
@@ -61,7 +69,7 @@ namespace eAgenda2._0.Apresentacao
                 return;
             }
 
-            
+
             bool existeTitulo = repositorioTarefa.SelecionarTodos().Exists(x => x.Titulo == tela.Tarefa.Titulo);
 
             if (existeTitulo == true)
@@ -74,8 +82,8 @@ namespace eAgenda2._0.Apresentacao
 
             if (tela.Tarefa.Prioridade == null)
                 tela.Tarefa.Prioridade = PrioridadeTarefa.Baixa;
-             
-            
+
+
 
 
             if (resultado == DialogResult.OK)
@@ -115,7 +123,7 @@ namespace eAgenda2._0.Apresentacao
 
             Tarefa tarefaPendenteSelecionada = (Tarefa)listTarefasPendentes.SelectedItem;
             Tarefa tarefaConcluidaSelecionada = (Tarefa)listTarefasConcluidas.SelectedItem;
-            
+
             if (tarefaPendenteSelecionada != null)
                 ExcluirTarefa(tarefaPendenteSelecionada);
 
